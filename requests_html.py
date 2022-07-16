@@ -598,7 +598,7 @@ class HTML(BaseParser):
                 cookies_render.append(self._convert_cookiejar_to_render(cookie))
         return cookies_render
 
-    def render(self, retries: int = 8, script: str = None, wait: float = 0.2, scrolldown=False, sleep: int = 0, reload: bool = True, timeout: Union[float, int] = 8.0, keep_page: bool = False, cookies: list = [{}], send_cookies_session: bool = False):
+    def render(self, url:str, retries: int = 8, script: str = None, wait: float = 0.2, scrolldown=False, sleep: int = 0, reload: bool = True, timeout: Union[float, int] = 8.0, keep_page: bool = False, cookies: list = [{}], send_cookies_session: bool = False):
         """Reloads the response in Chromium, and replaces HTML content
         with an updated version, with JavaScript executed.
 
@@ -645,7 +645,8 @@ class HTML(BaseParser):
         Warning: the first time you run this method, it will download
         Chromium into your home directory (``~/.pyppeteer``).
         """
-
+        if url:
+            self.url = url
         self.browser = self.session.browser  # Automatically create a event loop and browser
         content = None
 
